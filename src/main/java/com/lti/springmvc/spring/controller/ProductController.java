@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.lti.springmvc.spring.entity.Customer;
 import com.lti.springmvc.spring.entity.Product;
 import com.lti.springmvc.spring.service.ProductService;
 
@@ -104,5 +106,30 @@ public class ProductController {
 		List<Product> products=productService.getProducts();
 		theModel.addAttribute("products", products);
 		return "show-all-products";
+	}
+	
+	@RequestMapping("/delete")
+	public String deleteProduct(@RequestParam("productId") int prodId) {
+		System.out.println(prodId);
+		productService.deleteProduct(prodId);
+		System.out.println("deleeting the selected element fro the database");
+		return "redirect:/product/showAllProducts";
+	}
+	
+	@RequestMapping("/update")
+	public String updateProduct(@RequestParam("productId") int prodId,Model theModel) {
+		System.out.println(prodId);
+		Product product=productService.getProduct(prodId);
+		System.out.println(" selected element fro the database");
+		System.out.println(product);
+		theModel.addAttribute("product", product);
+		return "update-product";
+	}
+	
+	@PostMapping("/saveProduct")
+	public String saveCustomer(@ModelAttribute("product") Product theProduct) {
+		System.out.println(theProduct);
+		productService.saveProduct(theProduct);
+		return "redirect:/product/showAllProducts";
 	}
 }

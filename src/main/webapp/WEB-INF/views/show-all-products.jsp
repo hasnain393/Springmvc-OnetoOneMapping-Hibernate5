@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,7 @@
 </head>
 <body>
 
-<div class="container">
+	<div class="container">
 		<div class="col-md-offset-1 col-md-10">
 			<h2>display all the products here123!!!!!!!!!!!</h2>
 			<hr />
@@ -32,7 +32,7 @@
 
 
 
-			
+
 			<br /> <br />
 			<div class="panel panel-info">
 				<div class="panel-heading">
@@ -43,7 +43,7 @@
 						<tr>
 							<th>Id</th>
 							<th>Name</th>
-							<th>Brand </th>
+							<th>Brand</th>
 							<th>price</th>
 							<th>stock</th>
 							<th>image</th>
@@ -75,8 +75,8 @@
 									onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
 								</td> --%>
 								<td>${tempProduct.img_path}</td>
-								<td>
-								<img width="30%" height="30%" alt="product_pic" src="<spring:url value='/resources/images/${tempProduct.img_path}' />">
+								<td><img width="30%" height="30%" alt="product_pic"
+									src="<spring:url value='/resources/images/${tempProduct.img_path}' />">
 								</td>
 
 							</tr>
@@ -93,27 +93,71 @@
 		</div>
 
 	</div>
-<div class="container" style="background-color:pink;">
-<div class="row">
-  <c:forEach var="tempProduct" items="${products}">
-  <div class="column col-lg-6">
- <img alt="product_pic" src="<spring:url value='/resources/images/${tempProduct.img_path}' />"> 
-							<%-- 	<p>${tempProduct.id}<p> --%>
-								<h2>Product name : ${tempProduct.name}</h2>
-						
-						<h3>Brand Name: <span class="highlight">${tempProduct.brand}</span></h3>
-								<h4>Price: ${tempProduct.price}</h4>
-								<h4> Stock: ${tempProduct.stock}</h4>
-    
-  </div>
-  </c:forEach>
-</div>
-</div>
-<style>
-img{
-display: inline-block;
-width: 50%;
-height: 20%;
+	<div class="container" style="background-color: pink;">
+		<div class="row">
+			<c:forEach var="tempProduct" items="${products}">
+				<div class="column col-lg-6">
+					<img alt="product_pic"
+						src="<spring:url value='/resources/images/${tempProduct.img_path}' />">
+					<%-- 	<p>${tempProduct.id}<p> --%>
+					<h2>Product name : ${tempProduct.name}</h2>
+
+					<h3>
+						Brand Name: <span class="highlight">${tempProduct.brand}</span>
+					</h3>
+					<h4>Price: ${tempProduct.price}</h4>
+					<h4>Stock: ${tempProduct.stock}</h4>
+
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<c:forEach var="tempProduct" items="${products}">
+				<c:url var="deleteLink" value="/product/delete">
+					<c:param name="productId" value="${tempProduct.id}" />
+				</c:url>
+				<c:url var="updateLink" value="/product/update">
+					<c:param name="productId" value="${tempProduct.id}" />
+				</c:url>
+				<div class="col-lg-4 ">
+					<div class="card " style="width: 18rem;">
+
+						<img class="card-img-top card-img" alt="product_pic"
+							src="<spring:url value='/resources/images/${tempProduct.img_path}' />">
+						<div class="card-body">
+							<h5 class="card-title">Product Name:${tempProduct.name}</h5>
+							<p class="card-text">Brand Name: ${tempProduct.brand}</p>
+							<p class="card-text">Current Stock: ${tempProduct.stock}</p>
+							<p class="card-text">Current Price: ${tempProduct.price}</p>
+							<a href="${updateLink}" class="card-link card-link-custom">Update</a> <a
+								 href="${deleteLink}" class="card-link card-link-custom">Delete</a>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+
+
+		</div>
+
+	</div>
+
+	<style>
+.card-link-custom {
+	margin-left: 15px;
+}
+
+.card-img {
+	margin-top: 40px;
+	width: 150%;
+	height: 100%;
+}
+
+img {
+	width: 30%;
+	height: 30%;
 }
 </style>
 </body>

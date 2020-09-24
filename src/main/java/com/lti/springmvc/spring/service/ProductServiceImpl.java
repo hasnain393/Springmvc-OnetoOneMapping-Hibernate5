@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.springmvc.spring.dao.ProductDAO;
+import com.lti.springmvc.spring.entity.Customer;
 import com.lti.springmvc.spring.entity.Product;
 
 
@@ -29,5 +30,17 @@ public class ProductServiceImpl  implements ProductService{
 	public void saveProduct(Product theProduct) {
 		productDAO.saveProduct(theProduct);
 	}
+	  
+	  @Override
+	    @Transactional
+	    public Product getProduct(int theId) {
+	        return productDAO.getProduct(theId);
+	    }
+
+	    @Override
+	    @Transactional
+	    public void deleteProduct(int theId) {
+	    	productDAO.deleteProduct(theId);
+	    }
 
 }
